@@ -70,14 +70,6 @@ st.markdown("""
     .confidence-high { color: #10B981; font-weight: bold; }
     .confidence-medium { color: #F59E0B; font-weight: bold; }
     .confidence-low { color: #EF4444; font-weight: bold; }
-    .model-badge {
-        display: inline-block;
-        padding: 0.25rem 0.5rem;
-        border-radius: 20px;
-        font-size: 0.8rem;
-        font-weight: bold;
-        margin-left: 0.5rem;
-    }
     .badge-tflite { background: #FFE4E6; color: #BE123C; }
     .batch-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -122,6 +114,12 @@ def load_tflite_model():
         if os.path.exists('model_quantized.tflite'):
             interpreter = tf.lite.Interpreter(model_path='model_quantized.tflite')
             interpreter.allocate_tensors()
+            
+            # ✅ DEBUG: Tampilkan input shape model
+            input_details = interpreter.get_input_details()
+            st.sidebar.write(f"📊 Model input shape: {input_details[0]['shape']}")
+            st.sidebar.write(f"📊 Model input dtype: {input_details[0]['dtype']}")
+            
             st.sidebar.success("✅ TFLite model loaded successfully!")
             return interpreter
         else:
@@ -130,7 +128,7 @@ def load_tflite_model():
     except Exception as e:
         st.sidebar.error(f"❌ Error loading TFLite model: {e}")
         return None
-
+# Prediction function for TFLite
 def predict_tflite(interpreter, img_array):
     """Prediction untuk TFLite model"""
     # Get input/output details
@@ -146,7 +144,7 @@ def predict_tflite(interpreter, img_array):
     # Get prediction
     prediction = interpreter.get_tensor(output_details[0]['index'])
     return prediction
-
+    
 # Enhanced preprocessing function untuk TFLite
 def preprocess_image(img, target_size=(200, 200)):
     """Preprocessing untuk TFLite model"""
@@ -157,31 +155,28 @@ def preprocess_image(img, target_size=(200, 200)):
         else:
             img_array = img
             
-        # Convert to grayscale jika RGB
-        if len(img_array.shape) == 3 and img_array.shape[2] == 3:
+        # Convert to grayscale 
+        if len(img_array.shape) == 3:
             img_array = cv2.cvtColor(img_array, cv2.COLOR_RGB2GRAY)
-        elif len(img_array.shape) == 3 and img_array.shape[2] == 4:
-            img_array = cv2.cvtColor(img_array, cv2.COLOR_RGBA2GRAY)
         
         # Resize
         img_array = cv2.resize(img_array, target_size)
         
-        # Add channel dimension & convert to 3 channels (TFLite biasanya butuh RGB)
+        # Add channel dimension (1 channel untuk grayscale)
         img_array = np.expand_dims(img_array, axis=-1)  # Shape: (200, 200, 1)
-        img_array = np.repeat(img_array, 3, axis=-1)    # Shape: (200, 200, 3)
-        
+
         # Normalize
         img_array = img_array.astype('float32') / 255.0
         
         # Add batch dimension
-        img_array = np.expand_dims(img_array, axis=0)
+        img_array = np.expand_dims(img_array, axis=0)   # Shape: (1, 200, 200, 1)
         
         return img_array
         
     except Exception as e:
         st.error(f"❌ Error preprocessing image: {e}")
         return None
-
+    
 # Display confidence meter
 def display_confidence(confidence, class_name):
     st.markdown(f'<div class="sub-header">📊 Confidence Level</div>', unsafe_allow_html=True)
@@ -207,13 +202,11 @@ def display_confidence(confidence, class_name):
 
 # Display prediction result
 def display_prediction_result(pred_class, confidence):
-    badge_class = "badge-tflite"
-    badge_text = "TFLITE"
-    
+    """Display hasil prediksi dengan styling"""
     if pred_class == 0:  # Normal
         st.markdown(f"""
         <div class="result-card normal-result">
-            <h2>🟢 Hasil: Normal <span class="model-badge {badge_class}">{badge_text}</span></h2>
+            <h2>🟢 Hasil: Normal</h2>
             <p>Sistem mendeteksi karakteristik tulisan dalam kategori normal.</p>
             <p><strong>Karakteristik yang diamati:</strong> Spasi konsisten, bentuk huruf stabil, alignment baik.</p>
         </div>
@@ -221,7 +214,7 @@ def display_prediction_result(pred_class, confidence):
     else:  # Dyslexic
         st.markdown(f"""
         <div class="result-card dyslexic-result">
-            <h2>🔴 Hasil: Indikasi Disleksia <span class="model-badge {badge_class}">{badge_text}</span></h2>
+            <h2>🔴 Hasil: Indikasi Disleksia</h2>
             <p>Sistem mendeteksi karakteristik yang mungkin mengindikasikan disleksia.</p>
             <p><strong>Karakteristik yang diamati:</strong> Inkonsistensi spasi, bentuk huruf tidak stabil, kemiringan variatif.</p>
             <p><small>⚠️ <strong>Peringatan:</strong> Hasil ini perlu dikonfirmasi oleh profesional medis. Ini hanya alat bantu screening.</small></p>
@@ -521,7 +514,6 @@ if uploaded_file is not None and interpreter is not None:
         st.write(f"**📄 Format:** {uploaded_file.type}")
         st.write(f"**🎨 Mode:** {image_display.mode}")
         st.write(f"**🤖 Model Type:** TFLite")
-        st.write(f"**📁 Model File:** model_quantized.tflite")
 
     with col2:
         st.subheader("🔍 Hasil Analisis")
@@ -597,11 +589,9 @@ if uploaded_file is not None and interpreter is not None:
             # TFLite explanation
             st.success("""
             **🚀 TFLite Optimized Model:**
-            - Model teroptimasi untuk **kecepatan dan efisiensi memori**
-            - Menggunakan **quantization** untuk size yang lebih kecil (~75% reduction)
-            - Analisis **real-time** dengan akurasi terjaga
-            - Cocok untuk **deployment mobile dan web**
-            - **Model size:** ~50-70MB (dari original 200MB+)
+            - Model teroptimasi untuk **kecepatan**
+            - Analisis **real-time** dengan akurasi tinggi
+            - Visualisasi area fokus AI berdasarkan **pola umum**
             """)
             
         except Exception as e:
@@ -625,7 +615,7 @@ else:
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center; color: #6B7280; padding: 2rem;'>
-    <p><strong>Dyslexia Detection AI</strong> - Powered by TensorFlow Lite</p>
+    <p><strong>Dyslexia Detection AI</strong>
     <p>Version 2.4 | TFLite Optimized | Fast & Efficient</p>
     <p><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening dan perlu konfirmasi profesional medis.</small></p>
 </div>
