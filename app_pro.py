@@ -95,7 +95,7 @@ st.markdown("---")
 # Sidebar
 with st.sidebar:
     st.markdown('<div class="sub-header">ℹ️ Tentang Aplikasi</div>', unsafe_allow_html=True)
-    st.info("Aplikasi ini menggunakan AI untuk menganalisis karakteristik tulisan tangan dalam mendeteksi indikasi disleksia.")
+    st.info("Aplikasi ini menggunakan Menggunakan VGG16 sebagai feature extractor, ditambah layer fully connected untuk klasifikasi biner (disleksia vs normal).")
     
     st.markdown("---")
     st.markdown('<div class="sub-header">📝 Cara Penggunaan</div>', unsafe_allow_html=True)
