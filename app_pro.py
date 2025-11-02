@@ -89,38 +89,41 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Header ---
-logo_kiri = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/logo-kmps.jpeg"
-logo_kanan = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/logo-dikti.jpg"
+logo_kiri = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/kiri.jfif"
+logo_tengah = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/tengah.jfif"
+logo_kanan = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/kanan.jfif"
 
 st.markdown("""
 <style>
 .header-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* teks tetap di tengah */
+    align-items: center;
     justify-content: center;
+    margin-top: -10px; /* biar lebih nempel atas */
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* logo pindah ke kiri */
-    gap: 6px;
-    width: 100%; /* biar bisa nempel kiri penuh */
-    padding-left: 40px; /* kasih jarak dari tepi kiri */
+    justify-content: flex-start; /* tetap kiri */
+    gap: 10px;
+    width: 100%;
+    padding-left: 35px; /* sedikit lebih kecil dari sebelumnya */
+    margin-top: 5px; /* nempel ke atas */
 }
 
 .logo-box {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 75px;
+    height: 45px; /* kecil */
     width: auto;
 }
 
 .logo-img {
-    max-height: 70px;
-    max-width: 140px;
+    max-height: 42px; /* ukuran ideal */
+    max-width: 85px;
     object-fit: contain;
 }
 
@@ -129,7 +132,7 @@ st.markdown("""
     font-size: 2.5rem;
     font-weight: 700;
     color: #6661d9;
-    margin-top: 10px;
+    margin-top: 30px; /* tetap ada jarak dari logo */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -139,6 +142,9 @@ st.markdown(f"""
     <div class="logo-container">
         <div class="logo-box">
             <img src="{logo_kiri}" class="logo-img">
+        </div>
+        <div class="logo-box">
+            <img src="{logo_tengah}" class="logo-img">
         </div>
         <div class="logo-box">
             <img src="{logo_kanan}" class="logo-img">
