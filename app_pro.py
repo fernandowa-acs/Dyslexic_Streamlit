@@ -88,8 +88,69 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Header
-st.markdown('<div class="main-header">🧠 Dyslexia Detection AI</div>', unsafe_allow_html=True)
+# --- Header ---
+logo_kiri = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/logo-kmps.jpeg"
+logo_kanan = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/logo-dikti.jpg"
+
+st.markdown("""
+<style>
+.header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* teks tetap di tengah */
+    justify-content: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* logo pindah ke kiri */
+    gap: 6px;
+    width: 100%; /* biar bisa nempel kiri penuh */
+    padding-left: 40px; /* kasih jarak dari tepi kiri */
+}
+
+.logo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    width: auto;
+}
+
+.logo-img {
+    max-height: 70px;
+    max-width: 140px;
+    object-fit: contain;
+}
+
+.main-header {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #6661d9;
+    margin-top: 10px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(f"""
+<div class="header-container">
+    <div class="logo-container">
+        <div class="logo-box">
+            <img src="{logo_kiri}" class="logo-img">
+        </div>
+        <div class="logo-box">
+            <img src="{logo_kanan}" class="logo-img">
+        </div>
+    </div>
+    <div class="main-header">🧠DyNetXAI</div>
+    <p style="text-align:center; color:#666; font-size:1.2rem; margin-top:0;">
+        Dyslexia Neural Explainable AI for Dyslexia Screening
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown("---")
 
 # Sidebar
@@ -611,12 +672,27 @@ else:
     </div>
     """, unsafe_allow_html=True)
 
-# Footer
+# Footer yang pasti work
 st.markdown("---")
-st.markdown("""
-<div style='text-align: center; color: #6B7280; padding: 2rem;'>
-    <p><strong>Dyslexia Detection AI</strong>
-    <p>Version 2.4 | TFLite Optimized | Fast & Efficient</p>
-    <p><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening dan perlu konfirmasi profesional medis.</small></p>
-</div>
-""", unsafe_allow_html=True)
+
+# Version info
+st.markdown('<div style="text-align: center; color: #6B7280;"><p><strong>Dyslexia Detection AI</strong></p><p>Version 2.4 | TFLite Optimized | Fast & Efficient</p></div>', unsafe_allow_html=True)
+
+col1, col2, col3 = st.columns([1, 3, 1])  # Kolom tengah lebih lebar
+with col2:
+    col_left, col_right = st.columns([1, 1.2])  # Kolom kanan lebih lebar
+    with col_left:
+        st.markdown("**🧠 Researcher Team**")
+        st.write("Dr. Karunia Eka Lestari")
+        st.write("Dr. Sri Winarni")
+        st.write("Dr. Aditya Prihandhika")
+    with col_right:
+        st.markdown("**💻 Developer Team**")
+        st.write("Dr. Edwin Setiawan Nugraha")
+        st.write("Dr. Mokhammad Ridwan Yudhanegara")
+        st.write("Fernando William Alexander")
+
+# Disclaimer
+st.markdown('<div style="text-align: center; color: #6B7280; margin-top: 1rem;"><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening dan perlu konfirmasi profesional medis.</small></div>', unsafe_allow_html=True)
+# Descriptions
+st.markdown('<div style="text-align: center; color: #6B7280;"><small>This project is funded by the Ministry of Higher Education, Science, and Technology (Kemendiktisaintek) through the Regular Fundamental Research Grant (PFR 2025) under contract number 108/C3/DT.05.00/PL/2025)</small></div>', unsafe_allow_html=True)
