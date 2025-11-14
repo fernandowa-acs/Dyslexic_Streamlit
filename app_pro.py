@@ -87,7 +87,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
+ 
 # --- Header ---
 logo_kiri = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/kiri.jfif"
 logo_tengah = "https://raw.githubusercontent.com/fernandowa-acs/Dyslexic_Streamlit/main/tengah.jfif"
@@ -100,30 +100,28 @@ st.markdown("""
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: -10px; /* biar lebih nempel atas */
 }
 
 .logo-container {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* tetap kiri */
-    gap: 10px;
+    justify-content: center; 
+    gap: 18px; 
     width: 100%;
-    padding-left: 35px; /* sedikit lebih kecil dari sebelumnya */
-    margin-top: 5px; /* nempel ke atas */
+    margin-top: 10px;
 }
 
 .logo-box {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 45px; /* kecil */
+    height: 60px; 
     width: auto;
 }
 
 .logo-img {
-    max-height: 42px; /* ukuran ideal */
-    max-width: 85px;
+    max-height: 55px; 
+    max-width: 110px;
     object-fit: contain;
 }
 
@@ -132,7 +130,7 @@ st.markdown("""
     font-size: 2.5rem;
     font-weight: 700;
     color: #6661d9;
-    margin-top: 30px; /* tetap ada jarak dari logo */
+    margin-top: 50px;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -685,20 +683,23 @@ st.markdown("---")
 st.markdown('<div style="text-align: center; color: #6B7280;"><p><strong>Dyslexia Detection AI</strong></p><p>Version 2.4 | TFLite Optimized | Fast & Efficient</p></div>', unsafe_allow_html=True)
 
 col1, col2, col3 = st.columns([1, 3, 1])  # Kolom tengah lebih lebar
+
 with col2:
     col_left, col_right = st.columns([1, 1.2])  # Kolom kanan lebih lebar
+
     with col_left:
         st.markdown("**🧠 Researcher Team**")
-        st.write("Dr. Karunia Eka Lestari")
-        st.write("Dr. Sri Winarni")
-        st.write("Dr. Aditya Prihandhika")
+        st.write("Dr. Karunia Eka Lestari, Universitas Singaperbangsa Karawang")
+        st.write("Dr. Sri Winarni, Universitas Padjadjaran")
+        st.write("Dr. Aditya Prihandhika, Universitas Singaperbangsa Karawang")
+
     with col_right:
         st.markdown("**💻 Developer Team**")
-        st.write("Dr. Edwin Setiawan Nugraha")
-        st.write("Dr. Mokhammad Ridwan Yudhanegara")
-        st.write("Fernando William Alexander")
+        st.write("Dr. Edwin Setiawan Nugraha, President University")
+        st.write("Dr. Mokhammad Ridwan Yudhanegara, Universitas Singaperbangsa Karawang")
+        st.write("Fernando William Alexander, President University")
 
 # Disclaimer
 st.markdown('<div style="text-align: center; color: #6B7280; margin-top: 1rem;"><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening dan perlu konfirmasi profesional medis.</small></div>', unsafe_allow_html=True)
 # Descriptions
-st.markdown('<div style="text-align: center; color: #6B7280;"><small>This project is funded by the Ministry of Higher Education, Science, and Technology (Kemendiktisaintek) through the Regular Fundamental Research Grant (PFR 2025) under contract number 108/C3/DT.05.00/PL/2025)</small></div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center; color: #6B7280;"><small>This project is funded by the Ministry of Higher Education, Science, and Technology (Kemendiktisaintek) through the Regular Fundamental Research Grant (PFR 2025) under contract number 108/C3/DT.05.00/PL/2025</small></div>', unsafe_allow_html=True)
