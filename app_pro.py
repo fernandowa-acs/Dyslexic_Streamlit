@@ -700,6 +700,6 @@ with col2:
         st.write("Fernando William Alexander, President University")
 
 # Disclaimer
-st.markdown('<div style="text-align: center; color: #6B7280; margin-top: 1rem;"><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening dan perlu konfirmasi profesional medis.</small></div>', unsafe_allow_html=True)
+st.markdown('<div style="text-align: center; color: #6B7280; margin-top: 1rem;"><small>⚠️ Disclaimer: Hasil analisis merupakan alat bantu screening pada anak usia 5-7 tahun dan perlu konfirmasi profesional medis.</small></div>', unsafe_allow_html=True)
 # Descriptions
 st.markdown('<div style="text-align: center; color: #6B7280;"><small>This project is funded by the Ministry of Higher Education, Science, and Technology (Kemendiktisaintek) through the Regular Fundamental Research Grant (PFR 2025) under contract number 108/C3/DT.05.00/PL/2025</small></div>', unsafe_allow_html=True)
